@@ -32,7 +32,8 @@
                             class="mt-1 block w-full px-4 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 rounded-md shadow-sm @error('ID_Bibit') border-red-500 @enderror">
                             <option value="">-- Pilih Bibit --</option>
                             @foreach ($bibits as $bibit)
-                                <option value="{{ $bibit->id }}" {{ old('ID_Bibit', $stokBibit->ID_Bibit) == $bibit->id ? 'selected' : '' }}>
+                                <option value="{{ $bibit->id }}"
+                                    {{ old('ID_Bibit', $stokBibit->ID_Bibit) == $bibit->id ? 'selected' : '' }}>
                                     {{ $bibit->Nama_Bibit }}
                                 </option>
                             @endforeach
@@ -62,7 +63,8 @@
 
                         <!-- Masuk -->
                         <div>
-                            <label for="Masuk" class="block text-base font-medium text-gray-700 mb-3">Jumlah Masuk</label>
+                            <label for="Masuk" class="block text-base font-medium text-gray-700 mb-3">Jumlah
+                                Masuk</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <input type="number" name="Masuk" id="Masuk"
                                     class="block w-full px-4 py-2.5 text-base border-gray-300 focus:ring-green-500 focus:border-green-500 rounded-md @error('Masuk') border-red-500 @enderror"
@@ -78,7 +80,8 @@
 
                         <!-- Keluar -->
                         <div>
-                            <label for="Keluar" class="block text-base font-medium text-gray-700 mb-3">Jumlah Keluar</label>
+                            <label for="Keluar" class="block text-base font-medium text-gray-700 mb-3">Jumlah
+                                Keluar</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <input type="number" name="Keluar" id="Keluar"
                                     class="block w-full px-4 py-2.5 text-base border-gray-300 focus:ring-green-500 focus:border-green-500 rounded-md @error('Keluar') border-red-500 @enderror"
@@ -94,7 +97,8 @@
 
                         <!-- Preview Stok Akhir -->
                         <div>
-                            <label for="stok_akhir_preview" class="block text-base font-medium text-gray-700 mb-3">Stok Akhir (Preview)</label>
+                            <label for="stok_akhir_preview" class="block text-base font-medium text-gray-700 mb-3">Stok
+                                Akhir (Preview)</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <input type="number" id="stok_akhir_preview" readonly disabled
                                     class="block w-full px-4 py-2.5 text-base bg-gray-50 border-gray-300 rounded-md"
@@ -103,7 +107,8 @@
                                     <span class="text-gray-500">unit</span>
                                 </div>
                             </div>
-                            <p id="stok-warning" class="mt-2 text-sm text-red-600 hidden">Stok akhir akan menjadi negatif!</p>
+                            <p id="stok-warning" class="mt-2 text-sm text-red-600 hidden">Stok akhir akan menjadi negatif!
+                            </p>
                         </div>
                     </div>
 
@@ -124,34 +129,34 @@
     </div>
 
     @push('scripts')
-    <script>
-        function hitungStokAkhir() {
-            const stokAwal = parseInt(document.getElementById('Stok_Awal').value) || 0;
-            const masuk = parseInt(document.getElementById('Masuk').value) || 0;
-            const keluar = parseInt(document.getElementById('Keluar').value) || 0;
+        <script>
+            function hitungStokAkhir() {
+                const stokAwal = parseInt(document.getElementById('Stok_Awal').value) || 0;
+                const masuk = parseInt(document.getElementById('Masuk').value) || 0;
+                const keluar = parseInt(document.getElementById('Keluar').value) || 0;
 
-            const stokAkhir = stokAwal + masuk - keluar;
-            const previewInput = document.getElementById('stok_akhir_preview');
-            const warningElement = document.getElementById('stok-warning');
+                const stokAkhir = stokAwal + masuk - keluar;
+                const previewInput = document.getElementById('stok_akhir_preview');
+                const warningElement = document.getElementById('stok-warning');
 
-            previewInput.value = stokAkhir;
+                previewInput.value = stokAkhir;
 
-            if (stokAkhir < 0) {
-                warningElement.classList.remove('hidden');
-                previewInput.classList.add('border-red-500', 'text-red-600');
-                previewInput.classList.remove('border-gray-300');
-            } else {
-                warningElement.classList.add('hidden');
-                previewInput.classList.remove('border-red-500', 'text-red-600');
-                previewInput.classList.add('border-gray-300');
+                if (stokAkhir < 0) {
+                    warningElement.classList.remove('hidden');
+                    previewInput.classList.add('border-red-500', 'text-red-600');
+                    previewInput.classList.remove('border-gray-300');
+                } else {
+                    warningElement.classList.add('hidden');
+                    previewInput.classList.remove('border-red-500', 'text-red-600');
+                    previewInput.classList.add('border-gray-300');
+                }
             }
-        }
 
-        document.getElementById('Stok_Awal').addEventListener('input', hitungStokAkhir);
-        document.getElementById('Masuk').addEventListener('input', hitungStokAkhir);
-        document.getElementById('Keluar').addEventListener('input', hitungStokAkhir);
+            document.getElementById('Stok_Awal').addEventListener('input', hitungStokAkhir);
+            document.getElementById('Masuk').addEventListener('input', hitungStokAkhir);
+            document.getElementById('Keluar').addEventListener('input', hitungStokAkhir);
 
-        document.addEventListener('DOMContentLoaded', hitungStokAkhir);
-    </script>
+            document.addEventListener('DOMContentLoaded', hitungStokAkhir);
+        </script>
     @endpush
 @endsection
